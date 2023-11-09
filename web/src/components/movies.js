@@ -30,10 +30,11 @@ export default class MoviesList extends Component {
 
   render() {
     const { movies } = this.state;
+    const username = process.env.OKTETO_USERNAME
     return (
       <div className="list row">
         <div className="col-md-6">
-          <h4>Movies</h4>
+          <h4>Movies for {username}</h4>
           <ul className="list-group">
             {movies &&
               movies.map((movie, index) => (

@@ -5,11 +5,16 @@ endpoints:
   - path: /api
     service: api
     port: 3000
+  - path: /username
+    service: api
+    port: 3000
 services:
   web:
     build: web
     ports:
     - 8080
+    environment:
+      - OKTETO_USERNAME=$OKTETO_USERNAME
   api:
     build: api
     ports:
@@ -18,6 +23,7 @@ services:
       - PORT=3000
       - DB_PASSWORD=passw0rd
       - DB_USER=root
+      - OKTETO_USERNAME=$OKTETO_USERNAME
   mysql:
     image: mysql:8
     environment:

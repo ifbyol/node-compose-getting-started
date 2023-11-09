@@ -1,5 +1,6 @@
 const db = require("../models");
 const Op = db.Sequelize.Op;
+const appConfig = require("../config/app.config.js");
 
 exports.create = (req, res) => {
   if (!req.body.title) {
@@ -38,4 +39,8 @@ exports.findAll = (req, res) => {
         message: err.message || "Unexpected error.",
       });
     });
+};
+
+exports.getUsername = (req, res) => {
+  res.send({username: appConfig.USERNAME})
 };
