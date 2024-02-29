@@ -5,8 +5,54 @@ build:
     target: dev
 
 deploy:
+  remote: true
+  commands:
+    - name: Check image used for web-dev service
+      command: "echo \"Image: ${OKTETO_BUILD_WEB_DEV_IMAGE}\" && echo \"SHA: ${OKTETO_BUILD_WEB_DEV_SHA}\""
+    - name: Check image used for web service
+      command: "echo \"Image: ${OKTETO_BUILD_WEB_IMAGE}\" && echo \"SHA: ${OKTETO_BUILD_WEB_SHA}\""
+    - name: Check image used for API service
+      command: "echo \"Image: ${OKTETO_BUILD_API_IMAGE}\" && echo \"SHA: ${OKTETO_BUILD_API_SHA}\""
+    - name: Deploy MongoDB
+      command:  helm upgrade --install mongodb mongodb/mongodb-12.1.30.tgz -f mongodb/values.yml --version 12.1.30
+    - name: Deploy redis
+      command: okteto deploy -f redis-compose.yaml
+    # - name: scan image
+    #  command: trivy image $OKTETO_BUILD_WEB_DEV_IMAGE
+    - name: List pods
+      command: kubectl get pods
+    - name: Set External Resources URL
+      command: |
+        echo "OKTETO_EXTERNAL_FAKE_ENDPOINTS_API_URL=https://fake-service.${OKTETO_NAMESPACE}" >> $OKTETO_ENV
+    - name: Create markdown
+      command: echo "This is a simple description for the db deployed externally printing an environment variable ${OKTETO_BUILD_API_IMAGE}" > docs/db.md
+
   compose:
-    file: docker-compose.yaml
+    - docker-compose.yaml
+    - nginx-compose.yaml
+  endpoints:
+    - path: /client
+      service: client
+      port: 80
+    - path: /
+      service: web
+      port: 8080
+    - path: /api
+      service: api
+      port: 3000
+
+external:
+  fake:
+    notes: docs/fake.md
+    icon: dashboard
+    endpoints:
+    - name: api
+  fake-db:
+    notes: docs/db.md
+    icon: dashboard
+    endpoints:
+    - name: console
+      url: https://fake-db.${OKTETO_NAMESPACE}/mysql
 
 dev:
   api:

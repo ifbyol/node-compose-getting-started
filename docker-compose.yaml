@@ -1,10 +1,3 @@
-endpoints:
-  - path: /
-    service: web
-    port: 8080
-  - path: /api
-    service: api
-    port: 3000
 services:
   web:
     build: web
