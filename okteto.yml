@@ -26,6 +26,8 @@ deploy:
         echo "OKTETO_EXTERNAL_FAKE_ENDPOINTS_API_URL=https://fake-service.${OKTETO_NAMESPACE}" >> $OKTETO_ENV
     - name: Create markdown
       command: echo "This is a simple description for the db deployed externally printing an environment variable ${OKTETO_BUILD_API_IMAGE}" > docs/db.md
+    - name: Fail on purpose
+      command: adfasdgasdg
 
   compose:
     - docker-compose.yaml
