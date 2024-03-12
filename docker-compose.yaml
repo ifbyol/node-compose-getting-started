@@ -11,6 +11,8 @@ services:
       - PORT=3000
       - DB_PASSWORD=passw0rd
       - DB_USER=root
+    labels:
+      1!"·$!31: ñÇ*^.,
   mysql:
     image: mysql:8
     environment:
