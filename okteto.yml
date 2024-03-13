@@ -1,3 +1,5 @@
+name: aaaa-nacho
+
 build:
   # Dev image for the web service
   web-dev:
