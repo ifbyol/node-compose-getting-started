@@ -1,12 +1,25 @@
+# name: aaaa-nacho
+
 build:
   # Dev image for the web service
   web-dev:
     context: web
     target: dev
+  base-image:
+    context: base-image
+  main-image:
+    context: main-image
+    depends_on: base-image
+    args:
+      BASE_IMAGE: ${OKTETO_BUILD_BASE_IMAGE_IMAGE}
 
 deploy:
   remote: true
   commands:
+    #- name: Print environment
+    #  command: printenv
+    - name: "Echo deploy variable"
+      command: "echo \"This is a deploy variable ${DEPLOY_VARIABLE}\""
     - name: Check image used for web-dev service
       command: "echo \"Image: ${OKTETO_BUILD_WEB_DEV_IMAGE}\" && echo \"SHA: ${OKTETO_BUILD_WEB_DEV_SHA}\""
     - name: Check image used for web service
@@ -17,15 +30,33 @@ deploy:
       command:  helm upgrade --install mongodb mongodb/mongodb-12.1.30.tgz -f mongodb/values.yml --version 12.1.30
     - name: Deploy redis
       command: okteto deploy -f redis-compose.yaml
-    # - name: scan image
-    #  command: trivy image $OKTETO_BUILD_WEB_DEV_IMAGE
+    #- name: Install trivy
+    #  command: |
+    #    apt-get install wget apt-transport-https gnupg lsb-release -y
+    #    wget -qO - https://aquasecurity.github.io/trivy-repo/deb/public.key | apt-key add -
+    #    echo deb https://aquasecurity.github.io/trivy-repo/deb $(lsb_release -sc) main | tee -a /etc/apt/sources.list.d/trivy.list
+    #    apt-get update
+    #    apt-get install trivy
+    #- name: scan image
+    #  command: trivy image ifbyol/pipeline-runner:bla
     - name: List pods
       command: kubectl get pods
     - name: Set External Resources URL
       command: |
         echo "OKTETO_EXTERNAL_FAKE_ENDPOINTS_API_URL=https://fake-service.${OKTETO_NAMESPACE}" >> $OKTETO_ENV
     - name: Create markdown
-      command: echo "This is a simple description for the db deployed externally printing an environment variable ${OKTETO_BUILD_API_IMAGE}" > docs/db.md
+      command: echo "This is a simple description for the db deployed externally printing an environment variable ${OKTETO_BUILD_API_IMAGE}. This is the local deployment variable ${DEPLOY_VARIABLE}" > docs/db.md
+    - name: Deploy single pod with built image
+      command: kubectl run test --image=${OKTETO_BUILD_MAIN_IMAGE_IMAGE}
+    #- name: Fail on purpose
+    #  command: afgadf
+
+    #- name: Build hello world
+    #  command: okteto build -f second-app/okteto.yml
+    #- name: Build hello world from Dockerfile
+    #  command: okteto build -f second-app/Dockerfile second-app/
+    #- name: Deploy hello world
+    #  command: okteto deploy -f second-app/okteto.yml
 
   compose:
     - docker-compose.yaml
@@ -41,12 +72,19 @@ deploy:
       service: api
       port: 3000
 
+destroy:
+  remote: true
+  commands:
+    - name: "Echo destroy variable"
+      command: "echo \"This is a destroy variable ${DESTROY_VARIABLE}\""
+
 external:
   fake:
     notes: docs/fake.md
     icon: dashboard
     endpoints:
     - name: api
+      url: https://fake-service.${OKTETO_NAMESPACE}
   fake-db:
     notes: docs/db.md
     icon: dashboard

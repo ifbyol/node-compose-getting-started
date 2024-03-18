@@ -1,0 +1,1 @@
+This is a simple description for the db deployed externally printing an environment variable registry.ifbyol.dev.okteto.net/ifbyol-okteto-admin/node-compose-getting-started-api@sha256:31a2230a787d0f974638912a37b6ff1169e72cc5c3c6cff1997b46824daadb45. This is the local deployment variable 
