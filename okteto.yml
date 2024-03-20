@@ -8,7 +8,6 @@ build:
   base-image:
     context: base-image
   main-image:
-    image: okteto.dev/main:latest
     context: main-image
     depends_on: base-image
     args:
@@ -24,9 +23,9 @@ deploy:
     - name: Check image used for web-dev service
       command: "echo \"Image: ${OKTETO_BUILD_WEB_DEV_IMAGE}\" && echo \"SHA: ${OKTETO_BUILD_WEB_DEV_SHA}\""
     - name: Check image used for web service
-      command: "echo \"Image: ${OKTETO_BUILD_WEB_IMAGE}\" && echo \"SHA: ${OKTETO_BUILD_WEB_SHA}\""
+      command: "echo \"Image: ${OKTETO_BUILD_BASE_IMAGE_IMAGE}\" && echo \"SHA: ${OKTETO_BUILD_BASE_IMAGE_SHA}\""
     - name: Check image used for API service
-      command: "echo \"Image: ${OKTETO_BUILD_API_IMAGE}\" && echo \"SHA: ${OKTETO_BUILD_API_SHA}\""
+      command: "echo \"Image: ${OKTETO_BUILD_MAIN_IMAGE_IMAGE}\" && echo \"SHA: ${OKTETO_BUILD_MAIN_IMAGE_SHA}\""
     #- name: Deploy MongoDB
     #  command:  helm upgrade --install mongodb mongodb/mongodb-12.1.30.tgz -f mongodb/values.yml --version 12.1.30
     #- name: Deploy redis

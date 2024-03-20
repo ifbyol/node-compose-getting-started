@@ -1,0 +1,33 @@
+sequenceDiagram
+    activate DeployCommand
+    DeployCommand->>DeployCommand: Config
+    DeployCommand->>DeployCommand: Build images
+    DeployCommand->>DeployCommand: Deploy dependencies
+    DeployCommand->>+RemoteDeployer: deploy
+    activate RemoteDeployer
+    RemoteDeployer->>RemoteDeployer: build dockerfile
+    RemoteDeployer->>Builder: Run
+    activate Builder
+    critical Run in BuildKit
+        Builder->>DeployCommand: deploy
+        activate DeployCommand
+        DeployCommand->>DeployCommand: Config
+        DeployCommand->>DeployCommand: Build images
+        DeployCommand->>DeployCommand: Deploy dependencies
+        DeployCommand->>+LocalDeployer: deploy
+        activate LocalDeployer
+        LocalDeployer->>LocalDeployer: Commands
+        LocalDeployer->>LocalDeployer: Compose
+        LocalDeployer->>LocalDeployer: Endpoints
+        LocalDeployer->>LocalDeployer: Divert
+        LocalDeployer->>LocalDeployer: External Resources
+        LocalDeployer-->>DeployCommand: 
+        deactivate LocalDeployer
+        DeployCommand-->>Builder: 
+        deactivate DeployCommand
+    end
+    Builder-->>RemoteDeployer: 
+    deactivate Builder
+    RemoteDeployer-->>DeployCommand: 
+    deactivate RemoteDeployer
+    deactivate DeployCommand

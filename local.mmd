@@ -1,0 +1,19 @@
+sequenceDiagram
+    activate DeployCommand
+    DeployCommand->>DeployCommand: Config
+    DeployCommand->>DeployCommand: Build images
+    DeployCommand->>DeployCommand: Deploy dependencies
+    DeployCommand->>+LocalDeployer: deploy
+    activate LocalDeployer
+    LocalDeployer->>+DeployableRunner: RunDeploy
+    activate DeployableRunner
+    DeployableRunner->>DeployableRunner: Commands
+    DeployableRunner->>DeployableRunner: Divert
+    DeployableRunner->>DeployableRunner: External Resources
+    DeployableRunner-->>LocalDeployer: 
+    deactivate DeployableRunner
+    LocalDeployer-->>DeployCommand: 
+    deactivate LocalDeployer
+    DeployCommand->>DeployCommand: Compose
+    DeployCommand->>DeployCommand: Endpoints
+    deactivate DeployCommand

@@ -1,0 +1,15 @@
+sequenceDiagram
+    activate DeployCommand
+    DeployCommand->>DeployCommand: Config
+    DeployCommand->>DeployCommand: Build images
+    DeployCommand->>DeployCommand: Deploy dependencies
+    DeployCommand->>+LocalDeployer: deploy
+    activate LocalDeployer
+    LocalDeployer->>LocalDeployer: Commands
+    LocalDeployer->>LocalDeployer: Compose
+    LocalDeployer->>LocalDeployer: Endpoints
+    LocalDeployer->>LocalDeployer: Divert
+    LocalDeployer->>LocalDeployer: External Resources
+    LocalDeployer-->>DeployCommand: 
+    deactivate LocalDeployer
+    deactivate DeployCommand

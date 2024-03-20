@@ -1,0 +1,6 @@
+flowchart 
+    A[DeployCommand] -->|Get deployer| B{Deployer}
+    B -->|Local| C[LocalDeployer]
+    B -->|Remote| D[RemoteDeployer]
+    D -->|Run| F[Builder]
+    F -->|deploy| A
