@@ -8,6 +8,7 @@ build:
   base-image:
     context: base-image
   main-image:
+    image: okteto.dev/main:latest
     context: main-image
     depends_on: base-image
     args:
@@ -18,18 +19,18 @@ deploy:
   commands:
     #- name: Print environment
     #  command: printenv
-    - name: "Echo deploy variable"
-      command: "echo \"This is a deploy variable ${DEPLOY_VARIABLE}\""
+    #- name: "Echo deploy variable"
+    #  command: "echo \"This is a deploy variable ${DEPLOY_VARIABLE}\""
     - name: Check image used for web-dev service
       command: "echo \"Image: ${OKTETO_BUILD_WEB_DEV_IMAGE}\" && echo \"SHA: ${OKTETO_BUILD_WEB_DEV_SHA}\""
     - name: Check image used for web service
       command: "echo \"Image: ${OKTETO_BUILD_WEB_IMAGE}\" && echo \"SHA: ${OKTETO_BUILD_WEB_SHA}\""
     - name: Check image used for API service
       command: "echo \"Image: ${OKTETO_BUILD_API_IMAGE}\" && echo \"SHA: ${OKTETO_BUILD_API_SHA}\""
-    - name: Deploy MongoDB
-      command:  helm upgrade --install mongodb mongodb/mongodb-12.1.30.tgz -f mongodb/values.yml --version 12.1.30
-    - name: Deploy redis
-      command: okteto deploy -f redis-compose.yaml
+    #- name: Deploy MongoDB
+    #  command:  helm upgrade --install mongodb mongodb/mongodb-12.1.30.tgz -f mongodb/values.yml --version 12.1.30
+    #- name: Deploy redis
+    #  command: okteto deploy -f redis-compose.yaml
     #- name: Install trivy
     #  command: |
     #    apt-get install wget apt-transport-https gnupg lsb-release -y
@@ -39,15 +40,15 @@ deploy:
     #    apt-get install trivy
     #- name: scan image
     #  command: trivy image ifbyol/pipeline-runner:bla
-    - name: List pods
-      command: kubectl get pods
-    - name: Set External Resources URL
-      command: |
-        echo "OKTETO_EXTERNAL_FAKE_ENDPOINTS_API_URL=https://fake-service.${OKTETO_NAMESPACE}" >> $OKTETO_ENV
-    - name: Create markdown
-      command: echo "This is a simple description for the db deployed externally printing an environment variable ${OKTETO_BUILD_API_IMAGE}. This is the local deployment variable ${DEPLOY_VARIABLE}" > docs/db.md
-    - name: Deploy single pod with built image
-      command: kubectl run test --image=${OKTETO_BUILD_MAIN_IMAGE_IMAGE}
+    #- name: List pods
+    #  command: kubectl get pods
+    #- name: Set External Resources URL
+    #  command: |
+    #    echo "OKTETO_EXTERNAL_FAKE_ENDPOINTS_API_URL=https://fake-service.${OKTETO_NAMESPACE}" >> $OKTETO_ENV
+    #- name: Create markdown
+    #  command: echo "This is a simple description for the db deployed externally printing an environment variable ${OKTETO_BUILD_API_IMAGE}. This is the local deployment variable ${DEPLOY_VARIABLE}" > docs/db.md
+    #- name: Deploy single pod with built image
+    #  command: kubectl run test --image=${OKTETO_BUILD_MAIN_IMAGE_IMAGE}
     #- name: Fail on purpose
     #  command: afgadf
 
@@ -58,9 +59,9 @@ deploy:
     #- name: Deploy hello world
     #  command: okteto deploy -f second-app/okteto.yml
 
-  compose:
-    - docker-compose.yaml
-    - nginx-compose.yaml
+#  compose:
+#    - docker-compose.yaml
+#    - nginx-compose.yaml
   endpoints:
     - path: /client
       service: client
