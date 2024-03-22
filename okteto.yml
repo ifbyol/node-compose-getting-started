@@ -73,10 +73,12 @@ deploy:
       port: 3000
 
 destroy:
-  remote: true
+  # remote: true
   commands:
     - name: "Echo destroy variable"
       command: "echo \"This is a destroy variable ${DESTROY_VARIABLE}\""
+    - name: "Echo is preview"
+      command: "echo \"Is this a preview? ${OKTETO_IS_PREVIEW_ENVIRONMENT}\""
 
 external:
   fake:
