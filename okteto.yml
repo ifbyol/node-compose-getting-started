@@ -18,6 +18,8 @@ deploy:
   commands:
     #- name: Print environment
     #  command: printenv
+    - name: "Echo is preview"
+      command: "echo \"Is this a preview? ${OKTETO_IS_PREVIEW_ENVIRONMENT}\""
     - name: "Echo deploy variable"
       command: "echo \"This is a deploy variable ${DEPLOY_VARIABLE}\""
     - name: Check image used for web-dev service
