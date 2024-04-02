@@ -52,8 +52,8 @@ deploy:
     #  command: kubectl run test --image=${OKTETO_BUILD_MAIN_IMAGE_IMAGE}
     - name: Okteto version
       command: okteto version
-    - name: Git diff
-      command: git diff
+    - name: Completely new step
+      command: echo "This is a new step"
       
     #- name: Fail on purpose
     #  command: afgadf
