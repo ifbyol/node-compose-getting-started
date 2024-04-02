@@ -81,6 +81,8 @@ destroy:
       command: "echo \"This is a destroy variable ${DESTROY_VARIABLE}\""
     - name: "Echo is preview"
       command: "echo \"Is this a preview? ${OKTETO_IS_PREVIEW_ENVIRONMENT}\""
+    - name: "Fail on porpuse"
+      command: asdasdgasg
 
 external:
   fake:
