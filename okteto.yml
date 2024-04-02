@@ -48,8 +48,13 @@ deploy:
         echo "OKTETO_EXTERNAL_FAKE_ENDPOINTS_API_URL=https://fake-service.${OKTETO_NAMESPACE}" >> $OKTETO_ENV
     - name: Create markdown
       command: echo "This is a simple description for the db deployed externally printing an environment variable ${OKTETO_BUILD_API_IMAGE}. This is the local deployment variable ${DEPLOY_VARIABLE}" > docs/db.md
-    - name: Deploy single pod with built image
-      command: kubectl run test --image=${OKTETO_BUILD_MAIN_IMAGE_IMAGE}
+    #- name: Deploy single pod with built image
+    #  command: kubectl run test --image=${OKTETO_BUILD_MAIN_IMAGE_IMAGE}
+    - name: Okteto version
+      command: okteto version
+    - name: Git diff
+      command: git diff
+      
     #- name: Fail on purpose
     #  command: afgadf
 
