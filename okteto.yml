@@ -82,7 +82,7 @@ deploy:
       port: 3000
 
 destroy:
-  remote: true
+  # remote: true
   commands:
     - name: "Echo destroy variable"
       command: "echo \"This is a destroy variable ${DESTROY_VARIABLE}\""
