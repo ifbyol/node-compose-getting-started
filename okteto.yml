@@ -54,8 +54,6 @@ deploy:
       command: okteto version
     - name: Completely new step
       command: echo "This is a new step"
-    - name: Force a new commit
-      command: echo "this is a new commit"
       
     #- name: Fail on purpose
     #  command: afgadf
