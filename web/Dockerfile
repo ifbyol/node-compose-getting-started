@@ -8,7 +8,7 @@ RUN npm install
 COPY . .
 RUN --mount=type=cache,target=./node_modules/.cache/webpack npm run build
 
-RUN echo "hi!"
+RUN echo "This is an example for the video"
 
 FROM bitnami/nginx
 COPY --from=dev /usr/src/app/build /app
