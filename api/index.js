@@ -10,4 +10,5 @@ app.use('/', movies);
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, function () {
   console.log('Starting movies server...');
+  console.log('New unnecessary log for testing purposes...')
 })
