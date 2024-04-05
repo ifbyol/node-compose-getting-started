@@ -5,6 +5,9 @@ build:
     target: dev
 
 deploy:
+  commands:
+    - name: "test"
+      command: echo "hi!"
   compose:
     file: docker-compose.yaml
 
