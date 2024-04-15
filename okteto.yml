@@ -54,6 +54,9 @@ deploy:
       command: okteto version
     - name: Completely new step
       command: echo "This is a new step"
+    - name: Add variable to Okteto environment
+      command: |
+        echo "TEST_ENV_VAR=Thisisanexample" >> $OKTETO_ENV
       
     #- name: Fail on purpose
     #  command: afgadf
@@ -86,6 +89,8 @@ destroy:
       command: "echo \"This is a destroy variable ${DESTROY_VARIABLE}\""
     - name: "Echo is preview"
       command: "echo \"Is this a preview? ${OKTETO_IS_PREVIEW_ENVIRONMENT}\""
+    - name: "Echo Okteto env var example"
+      command: "echo $TEST_ENV_VAR"
 
 external:
   fake:
