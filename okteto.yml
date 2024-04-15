@@ -57,6 +57,9 @@ deploy:
     - name: Add variable to Okteto environment
       command: |
         echo "TEST_ENV_VAR=Thisisanexample" >> $OKTETO_ENV
+    - name: Echo variable
+      command: |
+        echo ${TEST_ENV_VAR}
       
     #- name: Fail on purpose
     #  command: afgadf
@@ -90,7 +93,7 @@ destroy:
     - name: "Echo is preview"
       command: "echo \"Is this a preview? ${OKTETO_IS_PREVIEW_ENVIRONMENT}\""
     - name: "Echo Okteto env var example"
-      command: "echo $TEST_ENV_VAR"
+      command: echo ${TEST_ENV_VAR}
     - name: "Fail on purpose"
       command: asdgasdg
 
