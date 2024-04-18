@@ -14,7 +14,7 @@ build:
       BASE_IMAGE: ${OKTETO_BUILD_BASE_IMAGE_IMAGE}
 
 deploy:
-  remote: true
+  remote: false
   commands:
     #- name: Print environment
     #  command: printenv
