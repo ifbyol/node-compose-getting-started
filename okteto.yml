@@ -94,8 +94,6 @@ destroy:
       command: "echo \"Is this a preview? ${OKTETO_IS_PREVIEW_ENVIRONMENT}\""
     - name: "Echo Okteto env var example"
       command: "echo \"This is an example of env var added to OKTETO_ENV: ${TEST_ENV_VAR}\""
-    - name: "Fail on purpose"
-      command: asdgasdg
 
 external:
   fake:
