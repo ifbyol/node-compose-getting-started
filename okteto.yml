@@ -60,6 +60,9 @@ deploy:
     - name: Echo variable
       command: |
         echo ${TEST_ENV_VAR}
+    - name: Echo Okteto Env
+      command: |
+        cat $OKTETO_ENV
       
     #- name: Fail on purpose
     #  command: afgadf
