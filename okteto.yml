@@ -67,7 +67,7 @@ deploy:
       command: |
         echo $OKTETO_DOMAIN
     - name: Echo external endpoint value
-      command: echo $OKTETO_EXTERNAL_FAKE_ENDPOINTS_FAKE_DB_URL
+      command: echo $OKTETO_EXTERNAL_FAKE_DB_ENDPOINTS_CONSOLE_URL
       
     #- name: Fail on purpose
     #  command: afgadf
