@@ -63,6 +63,9 @@ deploy:
     - name: Echo Okteto Env
       command: |
         cat $OKTETO_ENV
+    - name: Echo okteto domain
+      command: |
+        echo $OKTETO_DOMAIN
       
     #- name: Fail on purpose
     #  command: afgadf
