@@ -45,7 +45,7 @@ deploy:
       command: kubectl get pods
     - name: Set External Resources URL
       command: |
-        echo "OKTETO_EXTERNAL_FAKE_ENDPOINTS_API_URL=https://fake-service.andreafalzetti.dev.okteto.net >> $OKTETO_ENV
+        echo "OKTETO_EXTERNAL_FAKE_ENDPOINTS_API_URL=https://fake-service.andreafalzetti.dev.okteto.net" >> $OKTETO_ENV
     - name: Create markdown
       command: echo "This is a simple description for the db deployed externally printing an environment variable ${OKTETO_BUILD_API_IMAGE}. This is the local deployment variable ${DEPLOY_VARIABLE}" > docs/db.md
     #- name: Deploy single pod with built image
