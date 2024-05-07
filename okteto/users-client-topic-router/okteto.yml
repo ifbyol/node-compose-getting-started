@@ -1,3 +1,7 @@
 build:
   test:
     context: image
+
+deploy:
+  commands:
+    - echo "hola"
